@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transkrip Akademik</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 10px;
+            background-color: #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+            text-transform: uppercase;
+        }
+        .biodata {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .biodata-item {
+            display: flex;
+        }
+        .biodata-label {
+            font-weight: bold;
+            width: 120px;
+            flex-shrink: 0;
+        }
+        .semester {
+            margin-bottom: 30px;
+        }
+        .semester-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #333;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        .summary-item {
+            text-align: center;
+        }
+        .summary-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .summary-value {
+            font-size: 18px;
+            color: #333;
+        }
+        .signature {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .signature-line {
+            border-bottom: 1px solid #333;
+            width: 200px;
+            margin: 0 auto 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">LOGO</div>
+            <div class="title">Transkrip Akademik</div>
+            <div>Universitas Indonesia</div>
+        </div>
+
+        <div class="biodata">
+            <div class="biodata-item">
+                <div class="biodata-label">NIM:</div>
+                <div>{{ nim }}</div>
+            </div>
+            <div class="biodata-item">
+                <div class="biodata-label">Nama:</div>
+                <div>{{ nama }}</div>
+            </div>
+            <div class="biodata-item">
+                <div class="biodata-label">Program Studi:</div>
+                <div>{{ program_studi }}</div>
+            </div>
+            <div class="biodata-item">
+                <div class="biodata-label">Angkatan:</div>
+                <div>{{ angkatan }}</div>
+            </div>
+        </div>
+
+        {% for semester in semesters %}
+        <div class="semester">
+            <div class="semester-title">Semester {{ semester.nomor }}</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Kode MK</th>
+                        <th>Nama MK</th>
+                        <th>SKS</th>
+                        <th>Nilai</th>
+                        <th>Mutu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for grade in semester.grades %}
+                    <tr>
+                        <td>{{ grade.kode }}</td>
+                        <td>{{ grade.nama }}</td>
+                        <td>{{ grade.sks }}</td>
+                        <td>{{ grade.nilai }}</td>
+                        <td>{{ grade.mutu }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endfor %}
+
+        <div class="footer">
+            <div class="summary-item">
+                <div class="summary-label">Total SKS</div>
+                <div class="summary-value">{{ total_sks }}</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-label">IPK</div>
+                <div class="summary-value">{{ ipk }}</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-label">Predikat</div>
+                <div class="summary-value">{{ predikat }}</div>
+            </div>
+        </div>
+
+        <div class="signature">
+            <div>Dekan Fakultas</div>
+            <div class="signature-line"></div>
+            <div>Dr. John Doe</div>
+        </div>
+    </div>
+</body>
+</html>
